@@ -205,7 +205,7 @@ def run_pipeline(task, openai_key, model_name, max_iterations=3, log_filename="p
     return code, df_new, overall_log
 
 if __name__ == '__main__':
-    input_filename = "/Users/jvnk/Documents/codedebug/LLMDebugger_new/input_data/bigcode/dataset/probs_oldn.jsonl"
+    input_filename = "LLMDebugger_new/input_data/bigcode/dataset/probs_oldn.jsonl"
     log_filename = "pipeline_log.jsonl"
     tasks = []
     with open(input_filename, "r") as f:
