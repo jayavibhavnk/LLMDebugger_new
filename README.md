@@ -6,6 +6,7 @@
 4. Run testing_jv.py (the path to the dataset has already been set) - command: python testing_jv.py
 5. Result path can be changed. (Optional)
 
+OPENAI_API_KEY has to be available in the environment.
 
 <img src="assets/ldb-logo5.webp" alt="LDB" width="115" align="left"><div align="center"><h1>A Large Language Model Debugger via Verifying Runtime Execution Step by Step</h1></div>
 
