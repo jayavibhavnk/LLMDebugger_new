@@ -43,11 +43,10 @@ def async_main(
         n_proc: int,
         log_path: str,
         verbose: bool,
-        port = "",
         testfile: str = None,
     ) -> None:
     gen = PyGenerator()
-    model = model_factory(model_name, port)
+    model = model_factory(model_name)
     print_v = make_printv(verbose)
     num_items = len(dataset)
     num_success = 0
@@ -56,9 +55,9 @@ def async_main(
             get_seed(i, item, model, num_items, pass_at_k, gen, log_path)
         return
     # divide dataset into several groups
-    with Pool(n_proc) as pool:
-        args = iter([(i, item, model, num_items, pass_at_k, gen, log_path) for i, item in enumerate_resume(dataset, log_path, testfile=testfile)])
-        pool.starmap(get_seed, args)
+    pool = Pool(n_proc)
+    args = iter([(i, item, model, num_items, pass_at_k, gen, log_path) for i, item in enumerate_resume(dataset, log_path, testfile=testfile)])
+    pool.starmap(get_seed, args)
 
 def run_simple(
         dataset: List[dict],
@@ -67,8 +66,7 @@ def run_simple(
         n_proc: int,
         log_path: str,
         verbose: bool,
-        port: str = "",
         testfile: str = None,
     ) -> None:
-    async_main(dataset, model_name, pass_at_k, n_proc, log_path, verbose, port, testfile)
+    async_main(dataset, model_name, pass_at_k, n_proc, log_path, verbose, testfile)
     print("Accuracy:", count_solved(log_path))

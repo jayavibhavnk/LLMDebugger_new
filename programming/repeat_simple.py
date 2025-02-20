@@ -42,12 +42,11 @@ def async_main(
         log_path: str,
         verbose: bool,
         is_leetcode: bool = False,
-        port: str = "",
         testfile: str = None,
     ) -> None:
     
     gen = PyGenerator()
-    model = model_factory(model_name, port)
+    model = model_factory(model_name)
 
     print_v = make_printv(verbose)
     
@@ -55,9 +54,9 @@ def async_main(
     num_success = 0
     # divide dataset into several groups
     n_proc = 10
-    with Pool(n_proc) as pool:
-        args = iter([(i, item, model, is_leetcode, num_items, max_iters, gen, log_path) for i, item in enumerate_resume(dataset, log_path, testfile=testfile)])
-        pool.starmap(get_seed, args)
+    pool = Pool(n_proc)
+    args = iter([(i, item, model, is_leetcode, num_items, max_iters, gen, log_path) for i, item in enumerate_resume(dataset, log_path, testfile=testfile)])
+    pool.starmap(get_seed, args)
 
 def run_repeat_simple(
         dataset: List[dict],
@@ -67,8 +66,7 @@ def run_repeat_simple(
         log_path: str,
         verbose: bool,
         is_leetcode: bool = False,
-        port: str = "",
         testfile: str = None,
     ) -> None:
-    async_main(dataset, model_name, language, max_iters, log_path, verbose, is_leetcode, port, testfile)
+    async_main(dataset, model_name, language, max_iters, log_path, verbose, is_leetcode, testfile)
     print("Accuracy:", count_solved(log_path))

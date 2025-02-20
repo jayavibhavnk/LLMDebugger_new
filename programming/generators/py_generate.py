@@ -1,12 +1,12 @@
 from .model import ModelBase, message_to_str
 from .model import ModelBase, Message, StarCoder
-from tracing import get_code_traces_block, get_code_traces_line, get_code_traces_function
+from ..tracing import get_code_traces_block, get_code_traces_line, get_code_traces_function
 from typing import Optional, List, Union
 import ast
 import re, random, time, json
 from .parse import parse_code_block, add_code_block
 from .prompt import *
-from utils import IMPORT_HEADER
+from ..utils import IMPORT_HEADER
 
 def trim_header(func_impl):
     if IMPORT_HEADER in func_impl:
@@ -172,7 +172,7 @@ class PyGenerator:
             # Check whether the solution can be executed
             if level == "line":
                 trace_blocks = get_code_traces_line(IMPORT_HEADER + prev_func_impl, failed_test.replace("assert ", "").split("==")[0], entry)
-            elif level == "function":
+            if level == "function":
                 trace_blocks = get_code_traces_function(IMPORT_HEADER + prev_func_impl, failed_test.replace("assert ", "").split("==")[0], entry)
             else:
                 trace_blocks = get_code_traces_block(IMPORT_HEADER + prev_func_impl, failed_test.replace("assert ", "").split("==")[0], entry)
@@ -210,7 +210,6 @@ class PyGenerator:
             elif level == "function":
                 max_num_blocks = 1
                 block_lines = trace_blocks[0]
-                print("313:", len(block_lines))
                 if len(block_lines) > 30:
                     trace_blocks[0] = block_lines[:15] + ["..."] + block_lines[-15:]
             else:

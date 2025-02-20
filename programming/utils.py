@@ -213,3 +213,10 @@ def count_solved(logpath) -> float:
         if "is_solved" in item and item["is_solved"]:
             solved += 1
     return float(solved) / count
+
+def get_func_header(code, entry_point):
+    lines = code.split("\n")
+    for line in lines:
+        if line.startswith("def " + entry_point + "("):
+            return line
+    return ""

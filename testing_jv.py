@@ -10,6 +10,9 @@ from programming.generators import PyGenerator, model_factory
 from programming.executors import PyExecutor
 from programming.utils import get_func_header, insert_comment, IMPORT_HEADER
 
+import os
+OPENAI_KEY = os.getenv('OPENAI_API_KEY')
+MODEL_NAME = "gpt-4-1106-preview"
 
 def generate_seed_code(prompt, test, temperature=0.0, model=MODEL_NAME):
     client = OpenAI(api_key=OPENAI_KEY)
@@ -205,7 +208,7 @@ def run_pipeline(task, openai_key, model_name, max_iterations=3, log_filename="p
     return code, df_new, overall_log
 
 if __name__ == '__main__':
-    input_filename = "LLMDebugger_new/input_data/bigcode/dataset/probs_oldn.jsonl"
+    input_filename = "input_data/bigcode/dataset/probs_oldn.jsonl"
     log_filename = "pipeline_log.jsonl"
     tasks = []
     with open(input_filename, "r") as f:

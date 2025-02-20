@@ -154,13 +154,13 @@ class GPTChat(ModelBase):
 
 
 class GPT4(GPTChat):
-    def __init__(self, model, key):
-        super().__init__(model, key)
+    def __init__(self, key):
+        super().__init__("gpt-4-1106-preview", key)
 
 
 class GPT35(GPTChat):
-    def __init__(self, model, key):
-        super().__init__(model, key)
+    def __init__(self, key):
+        super().__init__("gpt-3.5-turbo-0613", key)
 
 
 class VLLMModelBase(ModelBase):
@@ -168,9 +168,8 @@ class VLLMModelBase(ModelBase):
     Base for huggingface chat models
     """
 
-    def __init__(self, model, port=""):
+    def __init__(self, model, port="8000"):
         super().__init__(model)
-        port = port or "8000"
         self.model = model
         self.vllm_client = OpenAI(api_key="EMPTY", base_url=f"http://localhost:{port}/v1")
         self.tokenizer = AutoTokenizer.from_pretrained(model)
