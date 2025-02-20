@@ -2,9 +2,8 @@
 
 1. Clone the repository
 2. Install requirements
-3. Navigate to the programming folder
-4. Run testing_jv.py (the path to the dataset has already been set) - command: python testing_jv.py
-5. Result path can be changed. (Optional)
+3. Run testing_jv.py (the path to the dataset has already been set) - command: python testing_jv.py
+4. Result path can be changed. (Optional)
 
 OPENAI_API_KEY has to be available in the environment.
 
