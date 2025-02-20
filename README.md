@@ -1,3 +1,12 @@
+## Instructions to run for Bigcode (first 15 questions):
+
+1. Clone the repository
+2. Install requirements
+3. Navigate to the programming folder
+4. Run testing_jv.py (the path to the dataset has already been set) - command: python testing_jv.py
+5. Result path can be changed. (Optional)
+
+
 <img src="assets/ldb-logo5.webp" alt="LDB" width="115" align="left"><div align="center"><h1>A Large Language Model Debugger via Verifying Runtime Execution Step by Step</h1></div>
 
 <p align="center">
